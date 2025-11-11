@@ -1,0 +1,92 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+ 
+# Additional caches and local tooling
+.mypy_cache/
+.ruff_cache/
+.coverage.*
+pip-wheel-metadata/
+.python-version
+.cursor/
+.agent-os-project/
+node_modules/
+# Logs
+logs/
+*.log
+
+# Uploads and Temp Files
+uploads/
+temp/
+tmp/
+
+# Job State Files
+jobs/
+*.json
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Model Cache (sentence-transformers)
+.cache/
+models/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Reports (keep structure, ignore generated reports)
+reports/*.json
+reports/*.txt
+
+# OS
+Thumbs.db
+.DS_Store
+
