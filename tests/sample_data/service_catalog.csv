@@ -1,0 +1,6 @@
+Service_Name,Service_Name_MR,Description,Department,Processing_Time,Fee,Online_Available,Portal_Link
+Birth Certificate,जन्म दाखला,Official birth registration certificate issued by municipal corporation,Registration Department,7 working days,₹50,Yes,https://services.dma.gov.in/birth-certificate
+Property Tax Payment,मालमत्ता कर भरणा,Annual property tax payment service for residential and commercial properties,Revenue Department,Immediate (online),Based on property size,Yes,https://tax.dma.gov.in/property
+Trade License,व्यापार परवाना,License required for operating commercial business establishments,Trade Department,15-20 working days,₹500,Partial,https://services.dma.gov.in/trade-license
+Water Connection,पाणी कनेक्शन,New water supply connection for residential or commercial properties,Water Supply Department,30 working days,"₹2,000 + deposit",No,-
+Building Permit,इमारत परवाना,Approval for construction of new buildings or major renovations,Town Planning Department,30-45 working days,"₹1,000 - ₹10,000",Application only,https://planning.dma.gov.in/building-permit

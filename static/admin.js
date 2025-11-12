@@ -60,9 +60,13 @@ function initializeUpload() {
  * Handle file selection
  */
 function handleFileSelection(file) {
+    // Detect file type
+    const fileType = getFileType(file.name);
+    
     // Validate file type
-    if (!file.name.endsWith('.json')) {
-        alert('Only JSON files are supported in Phase 1');
+    const supportedTypes = ['json', 'excel', 'csv'];
+    if (!supportedTypes.includes(fileType)) {
+        alert('Unsupported file type. Supported: JSON, Excel (.xlsx, .xls), CSV');
         return;
     }
     
@@ -74,9 +78,93 @@ function handleFileSelection(file) {
     
     selectedFile = file;
     
+    // Update file info display
+    document.getElementById('selectedFileInfo').textContent = `${file.name} (${formatFileSize(file.size)})`;
+    
+    // Populate structure options based on file type
+    populateStructureOptions(fileType);
+    
     // Show questionnaire
     document.getElementById('uploadSection').style.display = 'none';
     document.getElementById('questionnaireSection').classList.add('active');
+}
+
+/**
+ * Get file type from filename
+ */
+function getFileType(filename) {
+    const ext = filename.toLowerCase().split('.').pop();
+    
+    if (ext === 'json') return 'json';
+    if (ext === 'xlsx' || ext === 'xls' || ext === 'xlsm') return 'excel';
+    if (ext === 'csv' || ext === 'tsv') return 'csv';
+    
+    return 'unknown';
+}
+
+/**
+ * Format file size for display
+ */
+function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+/**
+ * Populate structure options based on file type
+ */
+function populateStructureOptions(fileType) {
+    const select = document.getElementById('contentStructure');
+    const helpText = document.getElementById('structureHelp');
+    
+    // Clear existing options
+    select.innerHTML = '<option value="">Select structure type...</option>';
+    
+    let structures = [];
+    let help = '';
+    
+    if (fileType === 'json') {
+        structures = [
+            {value: 'array_of_objects', label: 'Array of Objects (Standard table-like data)', help: 'Each object is like a table row'},
+            {value: 'nested_objects', label: 'Nested Objects (Hierarchical structure)', help: 'Objects within objects'},
+            {value: 'web_scraping_output', label: 'Web Scraping Output (url, title, content)', help: 'Contains web page data'},
+            {value: 'api_response', label: 'API Response (status, data wrapper)', help: 'Standard API response format'}
+        ];
+        help = 'Select the structure that matches your JSON file';
+        
+    } else if (fileType === 'excel') {
+        structures = [
+            {value: 'standard_table', label: 'Standard Data Table (Headers + rows)', help: 'Most common: one header row, data rows below'},
+            {value: 'faq_table', label: 'FAQ Table (Question & Answer columns)', help: '2 or 4 columns with Q&A'},
+            {value: 'directory_list', label: 'Directory/Contact List (Name, Position, etc.)', help: 'Officer directories, contact lists'},
+            {value: 'service_catalog', label: 'Service Catalog (Service descriptions)', help: 'Government services and schemes'},
+            {value: 'multiple_sheets', label: 'Multiple Sheets (Different data per sheet)', help: 'Workbook with multiple sheets'},
+            {value: 'text_in_cells', label: 'Text in Cells (Long paragraphs)', help: 'Cells contain narrative text'},
+            {value: 'complex_layout', label: 'Complex Layout (Merged cells, multiple tables)', help: 'Irregular structure'}
+        ];
+        help = 'Select the structure that best matches your Excel file';
+        
+    } else if (fileType === 'csv') {
+        structures = [
+            {value: 'standard_table', label: 'Standard Data Table (Headers + rows)', help: 'Most common CSV format'},
+            {value: 'faq_table', label: 'FAQ Table (Question & Answer columns)', help: 'CSV with Q&A format'},
+            {value: 'directory_list', label: 'Directory/Contact List', help: 'Contact information table'},
+            {value: 'service_catalog', label: 'Service Catalog', help: 'Services and schemes'}
+        ];
+        help = 'Select the structure that matches your CSV file';
+    }
+    
+    // Add options
+    structures.forEach(s => {
+        const option = document.createElement('option');
+        option.value = s.value;
+        option.textContent = s.label;
+        option.title = s.help;
+        select.appendChild(option);
+    });
+    
+    helpText.textContent = help;
 }
 
 /**
@@ -111,10 +199,13 @@ async function submitUpload() {
         return;
     }
     
+    // Detect file type
+    const fileType = getFileType(selectedFile.name);
+    
     // Prepare form data
     const formData = new FormData();
     formData.append('file', selectedFile);
-    formData.append('file_type', 'json');
+    formData.append('file_type', fileType);
     formData.append('content_structure', contentStructure);
     formData.append('language', language);
     formData.append('category', category);

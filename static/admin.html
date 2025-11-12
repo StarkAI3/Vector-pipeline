@@ -595,9 +595,9 @@
                 <div class="upload-icon">📁</div>
                 <h2>Upload File</h2>
                 <p>Click to browse or drag and drop your file here</p>
-                <input type="file" id="fileInput" accept=".json" style="display: none;">
+                <input type="file" id="fileInput" accept=".json,.xlsx,.xls,.csv" style="display: none;">
                 <p style="margin-top: 15px; color: #666; font-size: 0.9rem;">
-                    <strong>Phase 1:</strong> JSON files only • Max 50MB
+                    <strong>Phase 2:</strong> JSON, Excel, CSV • Max 50MB
                 </p>
             </div>
 
@@ -605,15 +605,19 @@
             <div id="questionnaireSection" class="questionnaire">
                 <h2 style="margin-bottom: 20px;">📝 Content Information</h2>
                 
+                <!-- File Info Display -->
+                <div class="form-group">
+                    <label>Selected File</label>
+                    <p id="selectedFileInfo" style="color: #667eea; font-weight: 600; font-size: 1.1rem;"></p>
+                </div>
+                
                 <div class="form-group">
                     <label for="contentStructure">Content Structure</label>
                     <select id="contentStructure" required>
                         <option value="">Select structure type...</option>
-                        <option value="array_of_objects">Array of Objects (Standard table-like data)</option>
-                        <option value="nested_objects">Nested Objects (Hierarchical structure)</option>
-                        <option value="web_scraping_output">Web Scraping Output (url, title, content)</option>
-                        <option value="api_response">API Response (status, data wrapper)</option>
+                        <!-- Options will be populated dynamically based on file type -->
                     </select>
+                    <p id="structureHelp" style="color: #666; font-size: 0.85rem; margin-top: 5px;"></p>
                 </div>
 
                 <div class="form-group">

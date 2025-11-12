@@ -7,6 +7,8 @@ from typing import Dict, Optional, Type
 
 from .base_extractor import BaseExtractor, ExtractionResult
 from .json_extractor import JSONExtractor
+from .excel_extractor import ExcelExtractor
+from .csv_extractor import CSVExtractor
 from ..utils.logger import get_logger
 from ..core.config import Config
 
@@ -25,7 +27,7 @@ class FileTypeRouter:
         # Registry of extractors by file type
         self._extractors: Dict[str, BaseExtractor] = {}
         
-        # Initialize available extractors (Phase 1: JSON only)
+        # Initialize available extractors
         self._initialize_extractors()
     
     def _initialize_extractors(self):
@@ -33,9 +35,11 @@ class FileTypeRouter:
         # Phase 1: JSON support
         self._extractors['json'] = JSONExtractor()
         
+        # Phase 2: Excel and CSV support
+        self._extractors['excel'] = ExcelExtractor()
+        self._extractors['csv'] = CSVExtractor()
+        
         # Future phases will add:
-        # Phase 2: self._extractors['excel'] = ExcelExtractor()
-        # Phase 2: self._extractors['csv'] = CSVExtractor()
         # Phase 3: self._extractors['text'] = TextExtractor()
         # Phase 4: self._extractors['pdf'] = PDFExtractor()
         # Phase 5: self._extractors['url'] = WebExtractor()

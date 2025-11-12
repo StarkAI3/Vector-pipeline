@@ -10,6 +10,7 @@ from ..processors.tabular_processor import TabularProcessor
 from ..processors.directory_processor import DirectoryProcessor
 from ..processors.web_content_processor import WebContentProcessor
 from ..processors.universal_processor import UniversalProcessor
+from ..processors.faq_table_processor import FAQTableProcessor
 from ..utils.logger import get_logger
 
 logger = get_logger('routing_engine')
@@ -31,16 +32,24 @@ class RoutingEngine:
             'tabular': TabularProcessor(),
             'directory': DirectoryProcessor(),
             'web_content': WebContentProcessor(),
+            'faq_table': FAQTableProcessor(),  # Phase 2: FAQ processor
             'universal': UniversalProcessor()  # Fallback
         }
         
         # Mapping of structure types to processors
         self._structure_to_processor = {
-            # Tabular structures
+            # JSON structures
             'array_of_objects': 'tabular',
             'single_object': 'tabular',
             'api_response': 'tabular',
+            
+            # Excel/CSV structures (Phase 2)
             'standard_table': 'tabular',
+            'faq_table': 'faq_table',
+            'service_catalog': 'tabular',
+            'text_in_cells': 'universal',
+            'complex_layout': 'universal',
+            'multiple_sheets': 'tabular',  # Will be handled specially
             
             # Directory structures
             'directory_format': 'directory',
@@ -53,7 +62,8 @@ class RoutingEngine:
             
             # Fallback
             'unknown': 'universal',
-            'mixed_content': 'universal'
+            'mixed_content': 'universal',
+            'empty': 'universal'
         }
         
         self.logger.info(f"Initialized routing engine with {len(self._processors)} processors")

@@ -7,6 +7,7 @@ from .tabular_processor import TabularProcessor
 from .directory_processor import DirectoryProcessor
 from .web_content_processor import WebContentProcessor
 from .universal_processor import UniversalProcessor
+from .faq_table_processor import FAQTableProcessor
 
 __all__ = [
     'BaseProcessor',
@@ -15,6 +16,7 @@ __all__ = [
     'TabularProcessor',
     'DirectoryProcessor',
     'WebContentProcessor',
-    'UniversalProcessor'
+    'UniversalProcessor',
+    'FAQTableProcessor'
 ]
 

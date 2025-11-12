@@ -4,18 +4,21 @@ A self-service data upload and management system for the DMA (Directorate of Mun
 
 ## 🎯 Project Status
 
-**Current Phase: Phase 1 - JSON Support ✓ COMPLETE**
+**Current Phase: Phase 2 - Excel/CSV Support ✓ COMPLETE**
 
-Complete end-to-end pipeline for JSON files is operational and production-ready!
+Complete end-to-end pipeline for JSON, Excel, and CSV files is operational and production-ready!
 
 ## 📋 Features
 
-- **Multi-format Support**: JSON, Excel, CSV, PDF, Text, Word, and Web URLs
+- **Multi-format Support**: ✅ JSON, ✅ Excel, ✅ CSV (PDF, Text, Word, Web URLs coming soon)
 - **Questionnaire-Based**: Simple wizard interface instead of complex auto-detection
 - **Bilingual Support**: Handles English, Marathi, and mixed content
 - **Background Processing**: Async job processing with progress tracking
 - **Quality Validation**: Automatic chunk quality assessment
 - **Comprehensive Reports**: Detailed processing reports with statistics
+- **De-duplication**: Content-based stable IDs prevent duplicates
+- **Deletion System**: Multiple deletion methods (semantic search, filename, filters)
+- **Vector DB Agnostic**: Works with Pinecone, Qdrant, and more
 
 ## 🏗️ Architecture
 
