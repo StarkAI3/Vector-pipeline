@@ -346,12 +346,29 @@ class ProcessingOrchestrator:
     ) -> Dict[str, Any]:
         """Stage 4: Prepare vectors for vector database"""
         try:
+            # Get source_id from metadata if available
+            source_id = metadata.get('source_id', 'unknown')
+            
             # Build combined chunk dicts expected by VectorPreparer
             combined = []
             for idx, chunk in enumerate(chunks):
                 embedding = embeddings[idx]
+                
+                # Get chunk_id, generate if empty or missing
+                chunk_id = getattr(chunk, 'chunk_id', '')
+                if not chunk_id or chunk_id == '':
+                    # Generate chunk ID using IDGenerator
+                    chunk_text = getattr(chunk, 'text', '')
+                    chunk_metadata = getattr(chunk, 'metadata', {})
+                    chunk_id = IDGenerator.generate_chunk_id(
+                        source_id=source_id,
+                        chunk_index=idx,
+                        content_sample=chunk_text[:200],  # First 200 chars for uniqueness
+                        metadata=chunk_metadata
+                    )
+                
                 combined.append({
-                    'id': getattr(chunk, 'chunk_id', getattr(chunk, 'id', f"chunk_{idx}")),
+                    'id': chunk_id,
                     'embedding': embedding,
                     'text': getattr(chunk, 'text', ''),
                     'metadata': getattr(chunk, 'metadata', {})

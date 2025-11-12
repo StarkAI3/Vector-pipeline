@@ -9,6 +9,7 @@ from .base_extractor import BaseExtractor, ExtractionResult
 from .json_extractor import JSONExtractor
 from .excel_extractor import ExcelExtractor
 from .csv_extractor import CSVExtractor
+from .text_extractor import TextExtractor
 from ..utils.logger import get_logger
 from ..core.config import Config
 
@@ -39,8 +40,10 @@ class FileTypeRouter:
         self._extractors['excel'] = ExcelExtractor()
         self._extractors['csv'] = CSVExtractor()
         
+        # Phase 3: Text and Markdown support
+        self._extractors['text'] = TextExtractor()
+        
         # Future phases will add:
-        # Phase 3: self._extractors['text'] = TextExtractor()
         # Phase 4: self._extractors['pdf'] = PDFExtractor()
         # Phase 5: self._extractors['url'] = WebExtractor()
         

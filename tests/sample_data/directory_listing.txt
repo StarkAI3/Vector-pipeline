@@ -1,0 +1,72 @@
+DMA District Office Contact Directory
+
+Name: राजेश कुमार शर्मा (Rajesh Kumar Sharma)
+Position: District Municipal Commissioner
+Department: Administration
+Email: rajesh.sharma@dma.gov.in
+Phone: +91-22-2266-1001
+Office: Mumbai District Office, Room 301
+
+Name: प्रिया देशपांडे (Priya Deshpande)
+Position: Deputy Commissioner - Finance
+Department: Finance and Accounts
+Email: priya.deshpande@dma.gov.in
+Phone: +91-22-2266-1002
+Office: Mumbai District Office, Room 205
+
+Name: अनिल वर्मा (Anil Verma)
+Position: Assistant Director - Planning
+Department: Urban Planning
+Email: anil.verma@dma.gov.in
+Phone: +91-22-2266-1003
+Office: Mumbai District Office, Room 410
+
+Name: सुनीता पाटील (Sunita Patil)
+Position: Senior Manager - IT Services
+Department: Information Technology
+Email: sunita.patil@dma.gov.in
+Phone: +91-22-2266-1004
+Office: Mumbai District Office, Room 115
+
+Name: Vikram Singh
+Position: Chief Engineer - Infrastructure
+Department: Engineering and Projects
+Email: vikram.singh@dma.gov.in
+Phone: +91-22-2266-1005
+Office: Mumbai District Office, Room 502
+
+Name: मीना जोशी (Meena Joshi)
+Position: Public Relations Officer
+Department: Communications
+Email: meena.joshi@dma.gov.in
+Phone: +91-22-2266-1006
+Office: Mumbai District Office, Room 210
+
+Name: अमित ठाकुर (Amit Thakur)
+Position: Legal Advisor
+Department: Legal Affairs
+Email: amit.thakur@dma.gov.in
+Phone: +91-22-2266-1007
+Office: Mumbai District Office, Room 315
+
+Name: नीता खान (Neeta Khan)
+Position: Environment Officer
+Department: Environmental Services
+Email: neeta.khan@dma.gov.in
+Phone: +91-22-2266-1008
+Office: Mumbai District Office, Room 420
+
+Name: Sanjay Kulkarni
+Position: Revenue Officer
+Department: Revenue and Taxation
+Email: sanjay.kulkarni@dma.gov.in
+Phone: +91-22-2266-1009
+Office: Mumbai District Office, Room 225
+
+Name: स्वाती नायर (Swati Nair)
+Position: Social Welfare Officer
+Department: Social Development
+Email: swati.nair@dma.gov.in
+Phone: +91-22-2266-1010
+Office: Mumbai District Office, Room 310
+

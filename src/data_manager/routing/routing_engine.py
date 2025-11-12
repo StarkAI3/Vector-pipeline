@@ -11,6 +11,8 @@ from ..processors.directory_processor import DirectoryProcessor
 from ..processors.web_content_processor import WebContentProcessor
 from ..processors.universal_processor import UniversalProcessor
 from ..processors.faq_table_processor import FAQTableProcessor
+from ..processors.text_processor import TextProcessor
+from ..processors.faq_document_processor import FAQDocumentProcessor
 from ..utils.logger import get_logger
 
 logger = get_logger('routing_engine')
@@ -32,7 +34,9 @@ class RoutingEngine:
             'tabular': TabularProcessor(),
             'directory': DirectoryProcessor(),
             'web_content': WebContentProcessor(),
-            'faq_table': FAQTableProcessor(),  # Phase 2: FAQ processor
+            'faq_table': FAQTableProcessor(),  # Phase 2: FAQ table processor
+            'text': TextProcessor(),  # Phase 3: Text/Markdown processor
+            'faq_document': FAQDocumentProcessor(),  # Phase 3: FAQ document processor
             'universal': UniversalProcessor()  # Fallback
         }
         
@@ -60,9 +64,14 @@ class RoutingEngine:
             'article': 'web_content',
             'web_content': 'web_content',
             
+            # Text/Markdown structures (Phase 3)
+            'narrative_document': 'text',
+            'structured_markdown': 'text',
+            'faq_format': 'faq_document',
+            
             # Fallback
             'unknown': 'universal',
-            'mixed_content': 'universal',
+            'mixed_content': 'text',  # Text processor can handle mixed content
             'empty': 'universal'
         }
         

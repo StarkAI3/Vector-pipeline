@@ -64,9 +64,9 @@ function handleFileSelection(file) {
     const fileType = getFileType(file.name);
     
     // Validate file type
-    const supportedTypes = ['json', 'excel', 'csv'];
+    const supportedTypes = ['json', 'excel', 'csv', 'text'];
     if (!supportedTypes.includes(fileType)) {
-        alert('Unsupported file type. Supported: JSON, Excel (.xlsx, .xls), CSV');
+        alert('Unsupported file type. Supported: JSON, Excel (.xlsx, .xls), CSV, Text (.txt, .md)');
         return;
     }
     
@@ -98,6 +98,7 @@ function getFileType(filename) {
     if (ext === 'json') return 'json';
     if (ext === 'xlsx' || ext === 'xls' || ext === 'xlsm') return 'excel';
     if (ext === 'csv' || ext === 'tsv') return 'csv';
+    if (ext === 'txt' || ext === 'md' || ext === 'markdown') return 'text';
     
     return 'unknown';
 }
@@ -153,6 +154,16 @@ function populateStructureOptions(fileType) {
             {value: 'service_catalog', label: 'Service Catalog', help: 'Services and schemes'}
         ];
         help = 'Select the structure that matches your CSV file';
+        
+    } else if (fileType === 'text') {
+        structures = [
+            {value: 'narrative_document', label: 'Narrative Document (Paragraphs and text)', help: 'Policy documents, guidelines, articles'},
+            {value: 'structured_markdown', label: 'Structured Markdown (Headings, lists, tables)', help: 'Markdown with # headings and formatting'},
+            {value: 'faq_format', label: 'FAQ Format (Q: A: pattern)', help: 'Question and Answer pairs in text'},
+            {value: 'directory_format', label: 'Directory Format (Name: Position: Contact:)', help: 'Contact information in text format'},
+            {value: 'mixed_content', label: 'Mixed Content (Various formats)', help: 'Text with multiple content types'}
+        ];
+        help = 'Select the structure that matches your text/markdown file';
     }
     
     // Add options
