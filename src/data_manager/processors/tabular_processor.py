@@ -25,7 +25,10 @@ class TabularProcessor(BaseProcessor):
         self.supported_structures = [
             "array_of_objects",
             "single_object",
-            "api_response"
+            "api_response",
+            # PDF structures (Phase 4)
+            "mostly_tables",
+            "standard_table"  # Also from Excel/CSV
         ]
     
     def get_supported_structures(self) -> List[str]:
@@ -37,13 +40,17 @@ class TabularProcessor(BaseProcessor):
         if structure in self.supported_structures:
             return True
         
+        # Check for PDF table content (Phase 4)
+        if isinstance(content, dict):
+            # PDF content with tables
+            if 'tables' in content or 'all_tables' in content:
+                return True
+            # Regular dict content
+            return True
+        
         # Also check if content is a list of dicts
         if isinstance(content, list) and len(content) > 0:
             return isinstance(content[0], dict)
-        
-        # Or single dict
-        if isinstance(content, dict):
-            return True
         
         return False
     
@@ -67,9 +74,36 @@ class TabularProcessor(BaseProcessor):
         Returns:
             ProcessingResult with chunks
         """
-        self._log_processing_start("tabular", len(content) if isinstance(content, list) else 1)
-        
         result = ProcessingResult()
+        
+        # Handle PDF table content (Phase 4)
+        if isinstance(content, dict) and 'tables' in content:
+            # Extract tables from PDF content
+            tables = content.get('tables', [])
+            if not tables:
+                tables = content.get('all_tables', [])
+            
+            # Convert PDF tables to list of dicts
+            content_list = []
+            for table in tables:
+                if isinstance(table, dict) and 'data' in table:
+                    # Table has 'data' field with list of row dicts
+                    content_list.extend(table['data'])
+                elif isinstance(table, dict) and 'rows' in table:
+                    # Table has 'rows' field - convert to dicts
+                    headers = table.get('headers', [])
+                    rows = table.get('rows', [])
+                    for row in rows:
+                        row_dict = {}
+                        for i, cell in enumerate(row):
+                            header = headers[i] if i < len(headers) else f"Column_{i+1}"
+                            row_dict[header] = cell
+                        content_list.append(row_dict)
+            
+            content = content_list
+            self._log_processing_start("tabular", len(content))
+        else:
+            self._log_processing_start("tabular", len(content) if isinstance(content, list) else 1)
         
         # Normalize to list
         if isinstance(content, dict):

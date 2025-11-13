@@ -69,6 +69,15 @@ class RoutingEngine:
             'structured_markdown': 'text',
             'faq_format': 'faq_document',
             
+            # PDF structures (Phase 4)
+            'text_document': 'text',  # Pure text PDF -> text processor
+            'document_with_tables': 'text',  # Mixed PDF -> text processor (handles both)
+            'mostly_tables': 'tabular',  # Table-heavy PDF -> tabular processor
+            'faq_document': 'faq_document',  # FAQ PDF -> FAQ document processor
+            'scanned_document': 'text',  # OCR'd PDF -> text processor
+            'form_template': 'text',  # Form PDF -> text processor
+            'complex_mix': 'text',  # Complex PDF -> text processor with universal fallback
+            
             # Fallback
             'unknown': 'universal',
             'mixed_content': 'text',  # Text processor can handle mixed content

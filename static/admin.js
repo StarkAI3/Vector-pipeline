@@ -64,9 +64,9 @@ function handleFileSelection(file) {
     const fileType = getFileType(file.name);
     
     // Validate file type
-    const supportedTypes = ['json', 'excel', 'csv', 'text'];
+    const supportedTypes = ['json', 'excel', 'csv', 'text', 'pdf'];
     if (!supportedTypes.includes(fileType)) {
-        alert('Unsupported file type. Supported: JSON, Excel (.xlsx, .xls), CSV, Text (.txt, .md)');
+        alert('Unsupported file type. Supported: JSON, Excel (.xlsx, .xls), CSV, Text (.txt, .md), PDF');
         return;
     }
     
@@ -99,6 +99,7 @@ function getFileType(filename) {
     if (ext === 'xlsx' || ext === 'xls' || ext === 'xlsm') return 'excel';
     if (ext === 'csv' || ext === 'tsv') return 'csv';
     if (ext === 'txt' || ext === 'md' || ext === 'markdown') return 'text';
+    if (ext === 'pdf') return 'pdf';
     
     return 'unknown';
 }
@@ -164,6 +165,18 @@ function populateStructureOptions(fileType) {
             {value: 'mixed_content', label: 'Mixed Content (Various formats)', help: 'Text with multiple content types'}
         ];
         help = 'Select the structure that matches your text/markdown file';
+        
+    } else if (fileType === 'pdf') {
+        structures = [
+            {value: 'text_document', label: 'Text Document (Articles, policies, guidelines)', help: 'Pure text PDF with paragraphs'},
+            {value: 'document_with_tables', label: 'Document with Tables (Mix of text and tables)', help: 'PDF containing both text and tables'},
+            {value: 'mostly_tables', label: 'Mostly Tables (Directory, lists, data tables)', help: 'PDF is primarily tables, like Excel in PDF format'},
+            {value: 'faq_document', label: 'FAQ Document (Question-Answer format)', help: 'PDF with Q&A pairs'},
+            {value: 'scanned_document', label: 'Scanned Document (Needs OCR)', help: 'Old scanned papers, will use OCR'},
+            {value: 'form_template', label: 'Form/Application (Form fields and instructions)', help: 'Application forms, registration forms'},
+            {value: 'complex_mix', label: 'Complex Mix (Text + Tables + Images)', help: 'PDF with all types of content - let system auto-detect'}
+        ];
+        help = 'Select the structure that best matches your PDF document';
     }
     
     // Add options

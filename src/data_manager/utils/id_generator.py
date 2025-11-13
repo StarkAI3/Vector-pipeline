@@ -38,13 +38,19 @@ class IDGenerator:
         Args:
             filename: Original filename
             file_hash: SHA256 hash of file
-            user_metadata: User-provided metadata (category, type, etc.)
+            user_metadata: User-provided metadata (category, language, etc.)
             
         Returns:
             Source ID string
+        
+        Note: content_type/structure is intentionally NOT included in source ID
+        to ensure same file with same category gets same ID regardless of
+        which structure option user selects in the questionnaire.
         """
         # Create deterministic hash from key attributes
-        source_string = f"{filename}_{file_hash}_{user_metadata.get('category', '')}_{user_metadata.get('content_type', '')}"
+        # NOTE: We exclude content_type to make de-duplication more reliable
+        # The same file + same category = same source, regardless of structure selection
+        source_string = f"{filename}_{file_hash}_{user_metadata.get('category', '')}"
         source_hash = hashlib.sha256(source_string.encode()).hexdigest()[:16]
         
         source_id = f"src_{source_hash}"

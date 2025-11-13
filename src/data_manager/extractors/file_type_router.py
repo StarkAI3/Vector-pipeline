@@ -10,6 +10,7 @@ from .json_extractor import JSONExtractor
 from .excel_extractor import ExcelExtractor
 from .csv_extractor import CSVExtractor
 from .text_extractor import TextExtractor
+from .pdf_extractor import PDFExtractor
 from ..utils.logger import get_logger
 from ..core.config import Config
 
@@ -43,8 +44,10 @@ class FileTypeRouter:
         # Phase 3: Text and Markdown support
         self._extractors['text'] = TextExtractor()
         
+        # Phase 4: PDF support
+        self._extractors['pdf'] = PDFExtractor()
+        
         # Future phases will add:
-        # Phase 4: self._extractors['pdf'] = PDFExtractor()
         # Phase 5: self._extractors['url'] = WebExtractor()
         
         self.logger.info(f"Initialized {len(self._extractors)} extractors: {list(self._extractors.keys())}")

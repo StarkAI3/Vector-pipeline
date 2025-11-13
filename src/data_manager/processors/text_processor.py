@@ -40,8 +40,19 @@ class TextProcessor(BaseProcessor):
         - narrative_document
         - structured_markdown
         - mixed_content (as fallback)
+        - PDF structures: text_document, document_with_tables, scanned_document, form_template, complex_mix
         """
-        if structure in ['narrative_document', 'structured_markdown', 'mixed_content']:
+        if structure in [
+            'narrative_document', 
+            'structured_markdown', 
+            'mixed_content',
+            # PDF structures (Phase 4)
+            'text_document',
+            'document_with_tables',
+            'scanned_document',
+            'form_template',
+            'complex_mix'
+        ]:
             return True
         
         # Check if content has expected text structure

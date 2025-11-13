@@ -878,6 +878,50 @@ class QdrantAdapter(VectorDBAdapter):
         except Exception as e:
             self.logger.error(f"Failed to search by metadata: {str(e)}")
             return []
+    
+    def check_source_exists(self, source_id: str, namespace: str = "") -> Tuple[bool, int]:
+        """
+        Check if vectors from a specific source already exist in Qdrant.
+        
+        Override the base class method to use Qdrant-specific _original_id prefix matching.
+        
+        Args:
+            source_id: Source ID to check (e.g., 'src_abc123')
+            namespace: Optional namespace (not used in Qdrant)
+        
+        Returns:
+            Tuple of (exists: bool, count: int)
+        """
+        if not self.client or not self.collection_name:
+            self.logger.warning("Qdrant client not initialized")
+            return False, 0
+        
+        try:
+            # Get all points and filter by _original_id prefix
+            # We scroll with a limit since we just need to check existence
+            points, _ = self.client.scroll(
+                collection_name=self.collection_name,
+                limit=10000,  # Reasonable limit for checking
+                with_payload=True,
+                with_vectors=False
+            )
+            
+            # Count points whose _original_id starts with source_id
+            matching_count = sum(
+                1 for point in points 
+                if point.payload and point.payload.get('_original_id', '').startswith(source_id)
+            )
+            
+            if matching_count > 0:
+                self.logger.info(f"Source {source_id} exists with {matching_count} vectors")
+                return True, matching_count
+            else:
+                self.logger.debug(f"Source {source_id} does not exist")
+                return False, 0
+                
+        except Exception as e:
+            self.logger.warning(f"Error checking source existence: {str(e)}")
+            return False, 0
 
 
 __all__ = ['QdrantAdapter']
